@@ -15,13 +15,15 @@ from models import *
 from utils import progress_bar
 
 import sys
-os.environ["CUDA_VISIBLE_DEVICES"] = sys.argv[1]
 
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
 parser.add_argument('--lr', default=0.1, type=float, help='learning rate')
 parser.add_argument('--resume', '-r', action='store_true',
                     help='resume from checkpoint')
+parser.add_argument('--gpu', default='0', type=str, help="GPU ID")
 args = parser.parse_args()
+
+os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 best_acc = 0  # best test accuracy
